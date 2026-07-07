@@ -11,10 +11,11 @@ class ResCompany(models.Model):
             ("production", "Production"),
         ],
         default="demo",
+        string="ARBA Environment",
     )
 
-    l10n_ar_arba_client_id = fields.Char()
-    l10n_ar_arba_client_secret = fields.Char()
+    l10n_ar_arba_client_id = fields.Char("Client ID")
+    l10n_ar_arba_client_secret = fields.Char("Client Secret")
 
     # Revisar si necesitamos campo para guardar actividad ARBA
     # posibles valores son
@@ -29,15 +30,6 @@ class ResCompany(models.Model):
     #     20 INSTITUTO PROV.DE LOTERIA Y CASINOS
     #     23 HONORARIOS
 
-    l10n_ar_arba_dj_period = fields.Selection(
-        selection=[
-            ("monthly", "Monthly"),
-            ("fortnightly", "Fortnightly"),
-        ],
-        default="monthly",
-        string="ARBA DJ Periodicity",
-    )
-
     l10n_ar_arba_wh_mode = fields.Selection(
         selection=[
             ("automatic", "Automatic"),
@@ -48,6 +40,6 @@ class ResCompany(models.Model):
         help="* Automatic: Withholdings will be automatically reported to ARBA when the payment is confirmed\n* Batch Import: Withholdings must be manually reported to ARBA by clicking the 'Inform to ARBA' button after payment validation",
     )
 
-    def _get_arba_environment_type(self):
+    def _get_arba_ws_environment_type(self):
         """Necesario para agregar luego capa seguridad en bases test/train"""
         return self.l10n_ar_arba_env
